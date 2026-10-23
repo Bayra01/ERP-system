@@ -9,6 +9,10 @@ from core.pagination import PageParams, paginate
 
 from .models import Customer, Location, Product
 
+def _ent(model) -> str:
+    return ENTITY.get(model) or f"{model.__module__.split('.')[1]}.{model.__name__}"
+
+
 ENTITY = {Customer: "masterdata.Customer", Product: "masterdata.Product", Location: "masterdata.Location"}
 
 
@@ -53,7 +57,7 @@ def create_item(db: Session, model, data, unique_field: str | None = None, actor
     db.add(obj)
     db.commit()
     db.refresh(obj)
-    log_action(db, actor_id, "create", ENTITY[model], obj.id)
+    log_action(db, actor_id, "create", _ent(model), obj.id)
     return obj
 
 
@@ -66,7 +70,7 @@ def update_item(db: Session, model, item_id: int, data, actor_id: int | None = N
         setattr(obj, k, v)
     db.commit()
     db.refresh(obj)
-    log_action(db, actor_id, "update", ENTITY[model], obj.id, {"fields": list(values)})
+    log_action(db, actor_id, "update", _ent(model), obj.id, {"fields": list(values)})
     return obj
 
 
@@ -80,4 +84,4 @@ def delete_item(db: Session, model, item_id: int, actor_id: int | None = None) -
     obj.deleted_at = utcnow()
     obj.is_active = False
     db.commit()
-    log_action(db, actor_id, "delete", ENTITY[model], obj.id)
+    log_action(db, actor_id, "delete", _ent(model), obj.id)

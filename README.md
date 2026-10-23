@@ -28,7 +28,8 @@ Prod (PostgreSQL): `alembic upgrade head`.
 | masterdata (Customers, Products, Locations) | /api/masterdata | duussan |
 | orders (Order, OrderLine, status machine) | /api/orders | duussan |
 | warehouse (stock, movement, reservation) | /api/warehouse | duussan |
-| transport, routing, finance, notifications | /api/<modul> | gishuun burt |
+| transport (Vehicle, Driver, Shipment, Trip) | /api/transport | duussan |
+| routing, finance, notifications | /api/<modul> | gishuun burt |
 
 Master data: orders/warehouse/transport ene table-uudiin `id`-g FK-eer holbono
 (`md_customers.id`, `md_products.id`, `md_locations.id`). Ustgal bol soft delete (`deleted_at`).
@@ -54,3 +55,15 @@ Gargadag: `stock.shortage` {order_id, shortages, stage} -> Notifications sonsoj 
 Uldegdel nemegdsenii daraa: `POST /api/warehouse/orders/{id}/reserve` (short reserve-g dahin hiine).
 
 Test deer `events.clear()`-iin orond `events.snapshot()` / `events.restore()` ashigla (busad modulin handler-g ustgahgui).
+
+## Transport
+`tr_vehicles`, `tr_drivers` (user_id -> jolooch role-toi hereglegch), `tr_shipments` (zahialga burt 1 zogsoltsoo), `tr_trips`.
+
+Sonsdog: `order.picking` (shipment uusgene, jin/omnoh baraanaas), `order.shipped` (ready=True), `order.cancelled` (shipment cancelled).
+Gargadag: `trip.started`, `shipment.delivered`, `shipment.failed`, `trip.completed`.
+Orders `shipment.delivered`-g sonsoj zahialgiig `delivered` bolgono (-> Finance invoice uusgeh).
+
+Trip: planned -> in_progress -> completed (suuliin zogsolt shiidegdehed avtomataar). Planned deer cancel hiij bolno.
+Trip ehluuleh nuhtsul: buh shipment `ready` (order 'shipped'). Achaa mashinii capacity-s hetreh bolomjgui.
+Jolooch (role=driver) zuvhun uuriin trip deer deliver/fail hiine, `GET /api/transport/my/trips`.
+Routing modul daraa n `Trip.stops` (stop_sequence) ba `total_distance_km`-g bugluj ugnu.
