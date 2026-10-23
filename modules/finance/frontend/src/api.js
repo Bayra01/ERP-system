@@ -20,8 +20,18 @@ const load = () => {
 };
 const save = (db) => { try { localStorage.setItem(KEY, JSON.stringify(db)); } catch { /* ignore */ } };
 
+// Token-g shell (frontend/src/lib/api.js) "erp.token" key-d hadgalna. Standalone ajilluulahad token baihgui bol demo.
+const TOKEN_KEY = "erp.token";
+const token = () => { try { return localStorage.getItem(TOKEN_KEY); } catch { return null; } };
+
 async function remote(path, options) {
-  const res = await fetch(BASE + path, { headers: { "Content-Type": "application/json" }, ...options });
+  const t = token();
+  const res = await fetch(BASE + path, {
+    headers: { "Content-Type": "application/json", ...(t ? { Authorization: `Bearer ${t}` } : {}) },
+    ...options,
+  });
+  // Token duussan: demo ruu unahgui, shell-d logout hiihiig medegdene.
+  if (res.status === 401 && t) window.dispatchEvent(new Event("erp:unauthorized"));
   if (!res.ok) throw new Error(res.status);
   return res.json();
 }
