@@ -39,7 +39,8 @@ def test_customer_crud_and_soft_delete(client, admin):
 
     assert client.delete(f"/api/masterdata/customers/{cid}", headers=admin).status_code == 204
     assert client.get(f"/api/masterdata/customers/{cid}", headers=admin).status_code == 404
-    assert client.get("/api/masterdata/customers", headers=admin).json()["total"] == 0
+    # busad modulin test customer uusgesen baij boloh tul q-eer shalgana
+    assert client.get("/api/masterdata/customers?q=nomin", headers=admin).json()["total"] == 0
 
 
 def test_product_validation(client, admin):

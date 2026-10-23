@@ -29,7 +29,8 @@ Prod (PostgreSQL): `alembic upgrade head`.
 | orders (Order, OrderLine, status machine) | /api/orders | duussan |
 | warehouse (stock, movement, reservation) | /api/warehouse | duussan |
 | transport (Vehicle, Driver, Shipment, Trip) | /api/transport | duussan |
-| routing, finance, notifications | /api/<modul> | gishuun burt |
+| finance (Invoice, Payment, Expense) | /api/finance | duussan |
+| routing, notifications | /api/<modul> | gishuun burt |
 
 Master data: orders/warehouse/transport ene table-uudiin `id`-g FK-eer holbono
 (`md_customers.id`, `md_products.id`, `md_locations.id`). Ustgal bol soft delete (`deleted_at`).
@@ -67,3 +68,13 @@ Trip: planned -> in_progress -> completed (suuliin zogsolt shiidegdehed avtomata
 Trip ehluuleh nuhtsul: buh shipment `ready` (order 'shipped'). Achaa mashinii capacity-s hetreh bolomjgui.
 Jolooch (role=driver) zuvhun uuriin trip deer deliver/fail hiine, `GET /api/transport/my/trips`.
 Routing modul daraa n `Trip.stops` (stop_sequence) ba `total_distance_km`-g bugluj ugnu.
+
+## Finance
+`fin_invoices` (nehemjleh, `paid` = tulburuuden niilber), `fin_payments`, `fin_expenses`.
+Endpoint: `GET/POST /api/finance/{invoices,payments,expenses}`, `GET /api/finance/invoices/{id}`.
+List endpoint Page biš, **Array** butsaana (frontend ene shapeeer ajilladag). Dun = number, talbaruud camelCase (`invoiceId`).
+Erh: `finance:read` / `finance:write` (admin, accountant).
+
+Sonsdog: `order.delivered` -> nehemjleh uusgene (dun = order.total_amount, tulukh hugatsaa +30 honog, 1 zahialga = 1 nehemjleh).
+Tulbur: nehemjlehiin uldegdelees ih baij bolohgui, buten tulugdsun nehemjleh deer 409.
+Nehemjleh gar aaraa uusgehed `customer` (ner) ugsun ch bolno: oldohgui bol shine kharitsagch (`AUTO-<id>`) uusgene, esvel `customer_id` ugnu.
