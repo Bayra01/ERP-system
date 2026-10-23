@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from core import events
 from core.audit import log_action
+from core.database import SessionLocal
 from core.exceptions import AppError, ConflictError, ForbiddenError, NotFoundError
 from core.pagination import PageParams, paginate
 from core.permissions import has_permission
@@ -167,3 +168,13 @@ def list_orders(db: Session, params: PageParams, status: str | None = None,
     if date_to:
         stmt = stmt.where(Order.order_date <= date_to)
     return paginate(db, stmt.order_by(Order.id.desc()), params)
+
+
+# ---- Transport-oos: jolooch hurgelt hiisen -> zahialga 'delivered'
+@events.subscribe("shipment.delivered")
+def on_shipment_delivered(p: dict) -> None:
+    with SessionLocal() as db:
+        order = db.get(Order, p["order_id"])
+        if order is None or order.status != "shipped":
+            return
+        change_status(db, order.id, "delivered", "admin", p.get("user_id"), "Hurgelt hiigdlee (transport)")
