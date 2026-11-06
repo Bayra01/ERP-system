@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # orders frontend
 
 React 18 + Vite. Захиалгын модулийн UI: нэвтрэх, жагсаалт (төлөв/хайлт/харилцагч шүүлт, хуудаслалт),
@@ -30,6 +29,3 @@ Backend (`uvicorn main:app --reload`) ажиллаж байх ёстой. Financ
 | warehouse | харах, бэлтгэж эхлэх, илгээсэн болгох |
 | driver | харах, хүргэгдсэн болгох |
 | accountant | зөвхөн харах |
-=======
-﻿# orders frontend
->>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4

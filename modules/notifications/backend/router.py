@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """/api/notifications - odoogiin hereglegchiin medegdel ba zahidal."""
 from datetime import datetime
 from typing import Literal
@@ -143,13 +142,3 @@ def read_one(nid: int, db: Session = Depends(get_db), user: User = Depends(get_c
     n.is_read = True
     db.commit()
     return _with_names(db, [n])[0]
-=======
-﻿from fastapi import APIRouter
-
-router = APIRouter(prefix="/api/notifications", tags=["notifications"])
-
-
-@router.get("/health")
-def health():
-    return {"module": "notifications", "status": "ok"}
->>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
