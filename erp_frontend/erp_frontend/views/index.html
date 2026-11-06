@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Logistics ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/erp_frontend/static/src/css/style.css?v=20261106k">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-orders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v3H9zM7 5.5H5.5v15h13v-15H17M8.5 11h7M8.5 15h5"/></symbol>
+    <symbol id="i-wh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5V20H3zM7 20v-7h10v7M7 16.5h10"/></symbol>
+    <symbol id="i-tr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5h11v10h-11zM13.5 10h4l3 3.5v3h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+    <symbol id="i-rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h7.5a3.5 3.5 0 0 0 0-7h-7a3.5 3.5 0 0 1 0-7H16"/></symbol>
+    <symbol id="i-fn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-nt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5h4"/></symbol>
+    <symbol id="i-us" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3 19.5c.6-3.2 3-5 6-5s5.4 1.8 6 5M16 5.6a3 3 0 0 1 0 5.8M18 14.8c1.6.6 2.7 2.2 3 4.7"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4zM13 4h7v4h-7zM13 10h7v10h-7zM4 13h7v7H4z"/></symbol>
+    <symbol id="i-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V6M4.5 12v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-6"/></symbol>
+    <symbol id="i-me" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6h17v12h-17zM4 6.5l8 6.5 8-6.5"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 2.5 20h19zM12 10v4.5M12 17.2v.3"/></symbol>
+  </defs>
+</svg>
+
+<div id="app" class="shell hidden">
+  <aside class="side">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div><strong>Logistics ERP</strong><span>Үйл ажиллагаа</span></div>
+    </div>
+    <nav aria-label="Үндсэн цэс">
+      <a id="t-po" href="#po"><svg><use href="#i-orders"/></svg>Миний захиалга</a>
+      <a id="t-db" href="#db"><svg><use href="#i-db"/></svg>Хянах самбар</a>
+      <a id="t-or" href="/orders/"><svg><use href="#i-orders"/></svg>Захиалга</a>
+      <a id="t-wh" href="#wh"><svg><use href="#i-wh"/></svg>Агуулах</a>
+      <a id="t-tr" href="#tr"><svg><use href="#i-tr"/></svg>Тээвэр</a>
+      <a id="t-rt" href="#rt"><svg><use href="#i-rt"/></svg>Маршрут</a>
+      <a id="t-fn" href="#fn"><svg><use href="#i-fn"/></svg>Санхүү</a>
+      <a id="t-md" href="#md"><svg><use href="#i-md"/></svg>Мастер өгөгдөл</a>
+      <div class="sep"></div>
+      <a id="t-nt" href="#nt"><svg><use href="#i-nt"/></svg>Мэдэгдэл<span id="bn" class="badge" hidden>0</span></a>
+      <a id="t-me" href="#me"><svg><use href="#i-me"/></svg>Миний мэдээлэл</a>
+      <a id="t-us" href="#us"><svg><use href="#i-us"/></svg>Ажилтнууд</a>
+    </nav>
+    <div class="side-user">
+      <span><b id="un"></b><br><span id="ur"></span></span>
+      <div class="side-actions"><button class="btn small" onclick="openMyPass()">Нууц үг</button><button class="btn small" onclick="logout()">Гарах</button></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <p id="err" class="alert hidden" role="alert"></p>
+
+    <!-- ===== Хянах самбар ===== -->
+    <section id="db" class="hidden">
+      <header class="page-head row">
+        <div><h1 id="dbh">Сайн байна уу</h1><p class="muted" id="dbs">Өнөөдрийн байдал</p></div>
+        <div class="head-actions"><button class="btn" onclick="rDb()">Шинэчлэх</button></div>
+      </header>
+      <div class="kpis" id="dbk"></div>
+      <div class="grid2">
+        <div class="panel flush"><div class="panel-head"><h2>Анхаарах зүйлс</h2><span class="muted small" id="dbac"></span></div><ul class="todo" id="dbt"></ul></div>
+        <div class="panel"><h2>Түргэн үйлдэл</h2><div class="quick" id="dbq"></div></div>
+      </div>
+      <div class="panel flush" id="dbop" hidden><div class="panel-head"><h2>Сүүлийн захиалгууд</h2><a class="small more" href="/orders/">Бүгдийг харах →</a></div>
+        <div class="scroll"><table><thead><tr><th>Дугаар</th><th>Харилцагч</th><th>Төлөв</th><th class="num">Дүн</th><th>Огноо</th></tr></thead><tbody id="dbo"></tbody></table></div></div>
+    </section>
+
+    <!-- ===== Агуулах ===== -->
+    <section id="wh" class="hidden">
+      <header class="page-head row">
+        <div><h1>Агуулах</h1><p class="muted">Барааны үлдэгдэл, орлого, зарлага</p></div>
+        <div class="head-actions w-only"><button class="btn" onclick="openTransfer()">Шилжүүлэг</button><button class="btn primary" onclick="openModal('m-receipt')">+ Орлого авах</button></div>
+      </header>
+      <div class="kpis" id="whk"></div>
+      <div class="toolbar">
+        <input type="search" id="q" placeholder="Бараа хайх (нэр, код)" oninput="debounce(rWh)" aria-label="Хайх">
+        <select id="wf" onchange="rWh()" aria-label="Агуулах"><option value="">Бүх агуулах</option></select>
+        <div class="chips" id="sfc" role="group" aria-label="Төлөвөөр шүүх"></div>
+      </div>
+      <div class="panel flush"><div class="scroll"><table>
+        <thead><tr><th>Код</th><th>Бараа</th><th>Агуулах</th><th class="num">Үлдэгдэл</th><th class="num">Нөөцлөсөн</th><th class="num">Боломжит</th><th>Түвшин</th><th>Төлөв</th><th></th></tr></thead>
+        <tbody id="wb"></tbody>
+      </table></div></div>
+      <div class="panel flush">
+        <h2>Сүүлийн хөдөлгөөн</h2>
+        <div class="scroll"><table><thead><tr><th>Огноо</th><th>Төрөл</th><th>Бараа</th><th>Агуулах</th><th class="num">Тоо</th><th class="num">Үлдэгдэл</th></tr></thead><tbody id="mv"></tbody></table></div>
+      </div>
+      <div class="panel flush" id="shp" hidden>
+        <div class="panel-head"><h2>Нөөц дутуу захиалгууд</h2><span class="muted small">Орлого авсны дараа «Дахин нөөцлөх» дарна</span></div>
+        <div class="scroll"><table><thead><tr><th>Захиалга</th><th>Бараа</th><th class="num">Хэрэгтэй</th><th class="num">Нийт боломжит</th><th></th></tr></thead><tbody id="shb"></tbody></table></div>
+      </div>
+    </section>
+
+    <!-- ===== Тээвэр ===== -->
+    <section id="tr" class="hidden">
+      <header class="page-head row">
+        <div><h1>Тээвэр</h1><p class="muted">Аялал, хүргэлт, тээврийн хэрэгсэл</p></div>
+        <div class="head-actions tw-only">
+          <button class="btn" onclick="openModal('m-vehicle')">+ Машин</button>
+          <button class="btn" onclick="openModal('m-driver')">+ Жолооч</button>
+          <button class="btn primary" onclick="openTrip()">+ Шинэ аялал</button>
+        </div>
+      </header>
+      <div class="kpis" id="trk"></div>
+      <div class="toolbar"><div class="chips" id="tsc" role="group" aria-label="Аяллын төлөв"></div></div>
+      <div class="panel flush"><div class="scroll"><table>
+        <thead><tr><th>Аялал · Огноо</th><th>Маршрут</th><th>Машин · Жолооч</th><th class="num">Ачаа</th><th class="num">Зай</th><th>Төлөв</th><th></th></tr></thead>
+        <tbody id="tb"></tbody>
+      </table></div></div>
+      <div class="panel flush" id="sbp">
+        <div class="panel-head"><h2>Хүргэлт хүлээж буй захиалгууд</h2><span class="muted small">Захиалгыг «Бэлтгэж эхлэх» болгоход үүснэ</span></div>
+        <div class="scroll"><table><thead><tr><th>Захиалга</th><th>Хүргэх хаяг</th><th class="num">Жин</th><th>Илгээгдсэн</th><th>Төлөв</th></tr></thead><tbody id="sb"></tbody></table></div>
+      </div>
+      <div class="grid2 even">
+        <div class="panel flush"><h2>Тээврийн хэрэгсэл</h2><div class="scroll"><table><thead><tr><th>Улсын дугаар</th><th>Төрөл</th><th class="num">Даац</th><th>Төлөв</th></tr></thead><tbody id="vb"></tbody></table></div></div>
+        <div class="panel flush"><h2>Жолооч</h2><div class="scroll"><table><thead><tr><th>Нэр</th><th>Утас</th><th>Систем</th></tr></thead><tbody id="db"></tbody></table></div></div>
+      </div>
+    </section>
+
+    <!-- ===== Маршрут ===== -->
+    <section id="rt" class="hidden">
+      <header class="page-head row">
+        <div><h1>Маршрут</h1><p class="muted" id="rtt">Аяллын зогсоолуудын дараалал, зай</p></div>
+        <div class="head-actions"><button class="btn primary r-only" id="rto" onclick="rtOptimize()" hidden>Маршрут оновчлох</button></div>
+      </header>
+      <div class="kpis" id="rtk"></div>
+      <div class="rt-grid">
+        <div class="tlist" id="rtl"></div>
+        <div>
+          <div class="panel flush">
+            <div class="savings" id="rtmsg" aria-live="polite" hidden></div>
+            <div class="mapbox"><svg id="rtmap" viewBox="0 0 640 380" role="img" aria-label="Маршрутын зураг"></svg></div>
+            <div class="scroll"><table>
+              <thead><tr><th>#</th><th>Зогсоол</th><th class="num">Жин</th><th class="num">Өмнөх цэгээс</th><th>Төлөв</th><th></th></tr></thead>
+              <tbody id="rts"></tbody>
+            </table></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Санхүү ===== -->
+    <section id="fn" class="hidden">
+      <header class="page-head row">
+        <div><h1>Санхүү</h1><p class="muted">Мөнгөн урсгал, авлага, зардлын тайлан</p></div>
+        <div class="head-actions">
+          <button class="btn" id="fnx" onclick="fnExport()" title="Сонгосон хугацааны тайлан, Excel (.xlsx)">Тайлан татах (Excel)</button>
+          <span class="head-actions f-only">
+            <button class="btn" onclick="openModal('m-expense')">+ Зардал</button>
+            <button class="btn primary" onclick="openModal('m-invoice')">+ Нэхэмжлэх</button>
+          </span>
+        </div>
+      </header>
+      <div class="toolbar">
+        <div class="chips" id="fnr" role="group" aria-label="Хугацаа"></div>
+        <label>Эхлэх <input type="date" id="ff" onchange="fnCustom()"></label>
+        <label>Дуусах <input type="date" id="ft" onchange="fnCustom()"></label>
+      </div>
+      <div class="kpis" id="fnk"></div>
+      <div class="panel">
+        <div class="panel-head" style="padding:0 0 12px"><h2>Сарын мөнгөн урсгал</h2><div class="legend" id="fnleg"></div></div>
+        <div id="fnc1" class="chart"></div>
+        <details><summary>Хүснэгтээр харах</summary><div class="scroll"><table id="fnt1"></table></div></details>
+      </div>
+      <div class="grid2 even">
+        <div class="panel"><h2>Авлагын насжилт <span class="muted small" style="font-weight:400">· өнөөдрийн байдлаар</span></h2><div id="fnc2" class="chart"></div></div>
+        <div class="panel"><h2>Зардал ангиллаар</h2><div id="fnc3" class="chart"></div></div>
+      </div>
+      <div class="panel flush"><h2>Их авлагатай харилцагчид</h2><div class="scroll"><table id="fntd"></table></div></div>
+      <div class="panel flush">
+        <div class="panel-head"><h2>Нэхэмжлэхүүд</h2><div class="chips" id="fisc" role="group" aria-label="Нэхэмжлэхийн төлөв"></div></div>
+        <div class="scroll"><table>
+          <thead><tr><th>Дугаар</th><th>Харилцагч</th><th>Огноо · Төлөх</th><th class="num">Дүн</th><th class="num">Төлсөн</th><th class="num">Үлдэгдэл</th><th>Төлөв</th><th></th></tr></thead>
+          <tbody id="fni"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- ===== Мэдэгдэл ===== -->
+    <section id="nt" class="hidden">
+      <header class="page-head row">
+        <div><h1>Мэдэгдэл</h1><p class="muted">Системийн мэдэгдэл ба хамт олны мессеж</p></div>
+        <div class="head-actions">
+          <button class="btn" onclick="ntReadAll()">Бүгдийг уншсан</button>
+          <button class="btn primary" onclick="ntCompose()">+ Мессеж</button>
+        </div>
+      </header>
+      <div class="toolbar"><div class="chips" id="ntf" role="group" aria-label="Шүүлтүүр"></div></div>
+      <p id="ntok" class="notice" hidden></p>
+      <div class="panel flush"><ul id="ntl" class="nlist"></ul><div id="ntp" class="pager" hidden></div></div>
+    </section>
+
+    <!-- ===== Ажилтнууд (зөвхөн админ) ===== -->
+    <section id="us" class="hidden">
+      <header class="page-head row">
+        <div><h1>Ажилтнууд</h1><p class="muted">Хэрэглэгчийн бүртгэл, эрх, нэвтрэх модуль</p></div>
+        <div class="head-actions"><button class="btn primary" onclick="usNew()">+ Ажилтан нэмэх</button></div>
+      </header>
+      <div class="kpis" id="usk"></div>
+      <div class="panel flush pending-panel" id="usp" hidden>
+        <div class="panel-head"><h2>Бүртгэлийн хүсэлтүүд</h2><span class="muted small">Батлахаас өмнө үүргийг шалгана уу</span></div>
+        <div class="scroll"><table><thead><tr><th>Хэрэглэгч</th><th>Илгээсэн</th><th>Хүссэн үүрэг</th><th>Олгох үүрэг</th><th></th></tr></thead><tbody id="uspb"></tbody></table></div>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="usq" placeholder="Нэр, хэрэглэгчийн нэрээр хайх" oninput="usDraw()" aria-label="Хайх">
+        <div class="chips" id="usc" role="group" aria-label="Дүрээр шүүх"></div>
+      </div>
+      <div class="panel flush"><div class="scroll"><table>
+        <thead><tr><th>Ажилтан</th><th>Дүр</th><th>Нэвтэрч болох модуль</th><th>Төлөв</th><th></th></tr></thead>
+        <tbody id="usb"></tbody>
+      </table></div></div>
+      <div class="panel"><h2>Дүр ба модуль</h2><div class="scroll"><table id="usr"></table></div></div>
+      <div class="panel flush">
+        <div class="panel-head"><h2>Үйлдлийн түүх</h2>
+          <div class="toolbar" style="margin:0"><select id="aufu" onchange="auLoad(1)" aria-label="Ажилтан"><option value="">Бүх ажилтан</option></select>
+          <select id="aufe" onchange="auLoad(1)" aria-label="Модуль"><option value="">Бүх модуль</option><option value="auth">Нэвтрэлт, ажилтан</option><option value="orders">Захиалга</option><option value="warehouse">Агуулах</option><option value="transport">Тээвэр</option><option value="routing">Маршрут</option><option value="finance">Санхүү</option><option value="masterdata">Мастер өгөгдөл</option></select></div></div>
+        <div class="scroll"><table><thead><tr><th>Хэзээ</th><th>Ажилтан</th><th>Үйлдэл</th><th>Юуг</th><th>Дэлгэрэнгүй</th></tr></thead><tbody id="aub"></tbody></table></div>
+        <div class="pager" id="aup"></div>
+      </div>
+    </section>
+
+    <!-- ===== Миний захиалга («Хэрэглэгч» — харилцагчийн портал) ===== -->
+    <section id="po" class="hidden">
+      <header class="page-head row">
+        <div><h1>Миний захиалга</h1><p class="muted">Захиалга өгөх, хаана явааг хянах</p></div>
+        <div class="head-actions"><button class="btn primary" onclick="poNew()">+ Захиалга өгөх</button></div>
+      </header>
+      <div class="kpis" id="pok"></div>
+      <div class="po-grid">
+        <div class="panel flush"><div class="scroll"><table>
+          <thead><tr><th>Захиалга</th><th>Бараа</th><th class="num">Дүн</th><th>Төлөв</th></tr></thead>
+          <tbody id="pob"></tbody></table></div></div>
+        <div class="panel" id="pod"></div>
+      </div>
+    </section>
+
+    <!-- ===== Миний мэдээлэл ===== -->
+    <section id="me" class="hidden">
+      <header class="page-head row">
+        <div><h1>Миний мэдээлэл</h1><p class="muted">Таны бүртгэл, нэвтрэх эрх, сүүлийн үйлдлүүд</p></div>
+        <div class="head-actions"><button class="btn" onclick="openMyPass()">Нууц үг солих</button></div>
+      </header>
+      <div class="grid2">
+        <div class="panel">
+          <div class="profile"><span class="avatar" id="mea" aria-hidden="true"></span>
+            <div><h2 id="men" style="margin:0;font-size:20px"></h2><p class="muted" style="margin:2px 0 0" id="meu"></p></div></div>
+          <dl class="kv" style="margin-top:18px">
+            <div><dt>Үүрэг</dt><dd id="mer"></dd></div>
+            <div><dt>Төлөв</dt><dd id="mes"></dd></div>
+            <div><dt>Бүртгүүлсэн</dt><dd id="mec"></dd></div>
+            <div><dt>Нэвтэрч болох модуль</dt><dd><div class="mods" id="mem"></div></dd></div>
+          </dl>
+          <p class="muted small" style="margin-top:14px">Үүрэг, эрхийг зөвхөн админ өөрчилнө.</p>
+        </div>
+        <div class="panel">
+          <h2>Мэдээлэл засах</h2>
+          <form class="compose" onsubmit="meSave(event)">
+            <label class="field">Овог нэр<input id="me-n" required minlength="2" maxlength="120" autocomplete="name"></label>
+            <div class="actions" style="justify-content:flex-start"><button class="btn primary">Хадгалах</button></div>
+          </form>
+        </div>
+      </div>
+      <div class="panel flush"><h2>Миний сүүлийн үйлдлүүд</h2>
+        <div class="scroll"><table><thead><tr><th>Хэзээ</th><th>Үйлдэл</th><th>Дэлгэрэнгүй</th></tr></thead><tbody id="meact"></tbody></table></div></div>
+    </section>
+
+    <!-- ===== Мастер өгөгдөл ===== -->
+    <section id="md" class="hidden">
+      <header class="page-head row">
+        <div><h1>Мастер өгөгдөл</h1><p class="muted">Харилцагч, бараа, агуулах ба хүргэх хаяг — бусад модулиуд эндээс авна</p></div>
+        <div class="head-actions md-w"><button class="btn primary" id="mdadd" onclick="mdNew()">+ Нэмэх</button></div>
+      </header>
+      <div class="toolbar">
+        <div class="chips" id="mdt" role="group" aria-label="Төрөл"></div>
+        <input type="search" id="mdq" placeholder="Хайх" oninput="debounce(rMd)" aria-label="Хайх">
+        <select id="mdf" onchange="rMd()" aria-label="Шүүлтүүр" hidden></select>
+      </div>
+      <div class="panel flush"><div class="scroll"><table><thead id="mdh"></thead><tbody id="mdb"></tbody></table></div><div class="pager" id="mdp" hidden></div></div>
+    </section>
+  </main>
+</div>
+
+<!-- ===== Modal-ууд ===== -->
+<div class="scrim" id="m-receipt" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-receipt-h">
+  <h2 id="m-receipt-h">Орлого авах</h2><p class="muted">Код нь бүртгэлгүй бол шинэ бараа үүснэ.</p>
+  <form onsubmit="addItem(event)">
+    <div class="two">
+      <label>Барааны код<input id="nc" required list="skus" onchange="fillName()" autocomplete="off"><datalist id="skus"></datalist></label>
+      <label>Тоо хэмжээ<input id="nq" type="number" min="0.001" step="any" required></label>
+    </div>
+    <label>Барааны нэр<input id="nn" placeholder="Шинэ бараа бол заавал"></label>
+    <label>Агуулах<select id="nw" required></select></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Хадгалах</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-out" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-out-h">
+  <h2 id="m-out-h">Зарлага</h2><p class="muted" id="mo-info"></p>
+  <form onsubmit="doOut(event)">
+    <label>Тоо хэмжээ<input id="mo-q" type="number" min="0.001" step="any" required></label>
+    <label>Тайлбар<input id="mo-n" maxlength="300" placeholder="Жишээ: эвдэрсэн, дотоод хэрэглээ"></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Зарлагадах</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-min" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-min-h">
+  <h2 id="m-min-h">Доод түвшин</h2><p class="muted" id="mm-info">Үлдэгдэл үүнээс бага бол «Бага үлдэгдэл» гэж тэмдэглэнэ.</p>
+  <form onsubmit="doMin(event)">
+    <label>Доод түвшин<input id="mm-q" type="number" min="0" step="any" required></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Хадгалах</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-trip" hidden><div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="m-trip-h">
+  <h2 id="m-trip-h">Шинэ аялал</h2><p class="muted">Хүргэлтүүдийг сонговол зогсоол болно. Маршрутыг дараа нь оновчилж болно.</p>
+  <form onsubmit="addTrip(event)">
+    <div class="two">
+      <label>Машин<select id="tv" required></select></label>
+      <label>Жолооч<select id="tdr" required></select></label>
+      <label>Хаанаас (агуулах)<select id="tf"></select></label>
+      <label>Огноо<input id="td" type="date" required></label>
+    </div>
+    <label>Тэмдэглэл<input id="tn"></label>
+    <div><div class="muted small" style="margin-bottom:6px">Хүргэлтүүд <span id="tsw"></span></div><div id="tsl" class="checks"></div></div>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Үүсгэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-vehicle" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-vehicle-h">
+  <h2 id="m-vehicle-h">Тээврийн хэрэгсэл нэмэх</h2>
+  <form onsubmit="addVehicle(event)">
+    <label>Улсын дугаар<input id="vp" required maxlength="20"></label>
+    <div class="two">
+      <label>Төрөл<select id="vt"><option value="truck">Ачааны машин</option><option value="van">Фургон</option><option value="car">Суудлын</option></select></label>
+      <label>Даац, кг<input id="vc" type="number" min="0" step="any"></label>
+    </div>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Нэмэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-driver" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-driver-h">
+  <h2 id="m-driver-h">Жолооч нэмэх</h2>
+  <form onsubmit="addDriver(event)">
+    <label>Овог нэр<input id="dn" required maxlength="120"></label>
+    <div class="two">
+      <label>Утас<input id="dp" maxlength="30"></label>
+      <label>Үнэмлэхний дугаар<input id="dl" maxlength="40"></label>
+    </div>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Нэмэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-invoice" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-invoice-h">
+  <h2 id="m-invoice-h">Шинэ нэхэмжлэх</h2><p class="muted">Харилцагч бүртгэлгүй бол автоматаар үүснэ.</p>
+  <form onsubmit="fnInvoice(event)">
+    <label>Харилцагч<input id="fic" required list="custs" autocomplete="off"><datalist id="custs"></datalist></label>
+    <div class="two">
+      <label>Дүн, ₮<input id="fia" type="number" min="1" step="any" required></label>
+      <label>Төлөх хугацаа<input id="fid" type="date"></label>
+    </div>
+    <label>Тэмдэглэл<input id="fin"></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Үүсгэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-pay" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-pay-h">
+  <h2 id="m-pay-h">Төлбөр бүртгэх</h2><p class="muted" id="mp-info"></p>
+  <form onsubmit="fnPayDo(event)">
+    <div class="two">
+      <label>Дүн, ₮<input id="mp-a" type="number" min="0.01" step="any" required></label>
+      <label>Огноо<input id="mp-d" type="date"></label>
+    </div>
+    <label>Төлбөрийн хэлбэр<select id="mp-m"><option value="bank">Банк</option><option value="cash">Бэлэн</option><option value="card">Карт</option></select></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Бүртгэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-expense" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-expense-h">
+  <h2 id="m-expense-h">Зардал нэмэх</h2>
+  <form onsubmit="fnExpense(event)">
+    <div class="two">
+      <label>Ангилал<input id="fec" required list="fecl" autocomplete="off"><datalist id="fecl"><option>Шатахуун</option><option>Засвар үйлчилгээ</option><option>Цалин</option><option>Түрээс</option><option>Бусад</option></datalist></label>
+      <label>Нийлүүлэгч<input id="fev" required></label>
+      <label>Дүн, ₮<input id="fea" type="number" min="1" step="any" required></label>
+      <label>Огноо<input id="fedt" type="date"></label>
+    </div>
+    <label>Төлөв<select id="fes"><option value="paid">Төлсөн</option><option value="pending">Төлөгдөөгүй</option></select></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Нэмэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-msg" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="ntct">
+  <h2 id="ntct">Шинэ мессеж</h2>
+  <form onsubmit="ntSend(event)">
+    <label id="ntto-l">Хүлээн авагч<select id="ntto" required></select></label>
+    <label>Гарчиг<input id="ntti" maxlength="200" required></label>
+    <label>Мессеж<textarea id="ntmsg" maxlength="500" rows="5" required></textarea></label>
+    <input type="hidden" id="ntre">
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Илгээх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-user" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mu-h">
+  <h2 id="mu-h">Ажилтан нэмэх</h2><p class="muted" id="mu-info">Ажилтан өөрийн хэрэглэгчийн нэр, нууц үгээр нэвтэрнэ.</p>
+  <form onsubmit="usSave(event)">
+    <div class="two">
+      <label>Хэрэглэгчийн нэр<input id="mu-u" required minlength="3" maxlength="50" autocomplete="off" pattern="[A-Za-z0-9_.\-]+" title="Латин үсэг, тоо, _ . -"></label>
+      <label>Овог нэр<input id="mu-n" maxlength="120"></label>
+    </div>
+    <label>Дүр<select id="mu-r" onchange="usRoleHint()"></select></label>
+    <p class="muted small" id="mu-hint" style="margin:-6px 0 0"></p>
+    <label id="mu-pl">Нууц үг<input id="mu-p" type="password" minlength="6" autocomplete="new-password"></label>
+    <label class="check" id="mu-al"><input type="checkbox" id="mu-a" checked> Идэвхтэй (нэвтэрч болно)</label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Хадгалах</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-pass" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mp2-h">
+  <h2 id="mp2-h">Нууц үг шинэчлэх</h2><p class="muted" id="mp2-info"></p>
+  <form onsubmit="usPassDo(event)">
+    <label>Шинэ нууц үг<input id="mp2-p" type="password" minlength="6" required autocomplete="new-password"></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Шинэчлэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-mypass" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mm2-h">
+  <h2 id="mm2-h">Нууц үг солих</h2><p class="muted">Хамгийн багадаа 6 тэмдэгт.</p>
+  <form onsubmit="doMyPass(event)">
+    <label>Одоогийн нууц үг<input id="my-o" type="password" required autocomplete="current-password"></label>
+    <div class="two">
+      <label>Шинэ нууц үг<input id="my-n" type="password" minlength="6" required autocomplete="new-password"></label>
+      <label>Дахин оруулах<input id="my-c" type="password" minlength="6" required autocomplete="new-password"></label>
+    </div>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Солих</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-transfer" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-transfer-h">
+  <h2 id="m-transfer-h">Агуулах хооронд шилжүүлэх</h2><p class="muted" id="mt-info">Илгээх агуулахын боломжит үлдэгдлээс хасаж, хүлээн авах агуулахад нэмнэ.</p>
+  <form onsubmit="doTransfer(event)">
+    <label>Бараа<select id="mt-p" required onchange="transferInfo()"></select></label>
+    <div class="two">
+      <label>Хаанаас<select id="mt-f" required onchange="transferInfo()"></select></label>
+      <label>Хаашаа<select id="mt-t" required></select></label>
+    </div>
+    <label>Тоо хэмжээ<input id="mt-q" type="number" min="0.001" step="any" required></label>
+    <label>Тайлбар<input id="mt-n" maxlength="300"></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Шилжүүлэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-fail" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-fail-h">
+  <h2 id="m-fail-h">Хүргэлт амжилтгүй</h2><p class="muted" id="mf-info"></p>
+  <form onsubmit="rtFailDo(event)">
+    <label>Шалтгаан<select id="mf-s" onchange="rtReason(this.value)"><option value="">Сонгох…</option><option>Хүлээн авагч байхгүй</option><option>Хаяг олдсонгүй</option><option>Хүлээн авахаас татгалзсан</option><option>Бараа гэмтсэн</option><option>Цаг хугацаа хүрэлцээгүй</option></select></label>
+    <label>Тайлбар<textarea id="mf-r" rows="3" maxlength="300" required></textarea></label>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn danger">Амжилтгүй гэж тэмдэглэх</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-md" hidden><div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="m-md-h">
+  <h2 id="m-md-h"></h2>
+  <form onsubmit="mdSave(event)"><div id="mdform" class="mdform"></div>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Хадгалах</button></div>
+  </form>
+</div></div>
+
+<div class="scrim" id="m-po" hidden><div class="modal wide" role="dialog" aria-modal="true" aria-labelledby="m-po-h">
+  <h2 id="m-po-h">Захиалга өгөх</h2><p class="muted">Үнэ барааны үнээр тооцогдоно. Диспетчер баталгаажуулсны дараа хүргэлтэд орно.</p>
+  <form onsubmit="poSubmit(event)">
+    <label>Хүргэх хаяг<select id="po-a" onchange="poAddrToggle()"></select></label>
+    <div class="two" id="po-new" hidden>
+      <label>Хаягийн нэр<input id="po-an" maxlength="200" placeholder="Жишээ: Гэр, Оффис"></label>
+      <label>Дэлгэрэнгүй хаяг<input id="po-ad" maxlength="300" placeholder="Дүүрэг, хороо, байр, тоот"></label>
+    </div>
+    <div><div class="muted small" style="margin-bottom:6px">Бараа</div><div id="po-lines" class="po-lines"></div>
+      <button type="button" class="btn small" style="margin-top:8px" onclick="poAddLine()">+ Бараа нэмэх</button></div>
+    <div class="two">
+      <label>Хүргүүлэх огноо<input id="po-d" type="date"></label>
+      <label>Тэмдэглэл<input id="po-n" maxlength="1000" placeholder="Жишээ: 10 цагаас өмнө"></label>
+    </div>
+    <div class="po-total"><span class="muted">Нийт дүн</span><b id="po-t">0 ₮</b></div>
+    <div class="actions"><button type="button" class="btn" onclick="closeModal()">Болих</button><button class="btn primary">Захиалга илгээх</button></div>
+  </form>
+</div></div>
+
+<div id="tip" class="tip" hidden></div>
+<script src="/erp_frontend/static/src/js/app.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/route.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/finance.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/notify.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/users.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/masterdata.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/portal.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/profile.js?v=20261106k"></script>
+<script src="/erp_frontend/static/src/js/dashboard.js?v=20261106k"></script>
+<script>boot()</script>
+</body>
+</html>

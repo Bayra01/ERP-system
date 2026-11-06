@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Нэвтрэх · Logistics ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/erp_frontend/static/src/css/style.css?v=20261106k">
+</head>
+<body class="auth">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-orders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v3H9zM7 5.5H5.5v15h13v-15H17M8.5 11h7M8.5 15h5"/></symbol>
+    <symbol id="i-wh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 4l9 5.5V20H3zM7 20v-7h10v7M7 16.5h10"/></symbol>
+    <symbol id="i-tr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5h11v10h-11zM13.5 10h4l3 3.5v3h-7"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+    <symbol id="i-rt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8 18h7.5a3.5 3.5 0 0 0 0-7h-7a3.5 3.5 0 0 1 0-7H16"/></symbol>
+    <symbol id="i-fn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-nt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5h4"/></symbol>
+    <symbol id="i-admin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></symbol>
+  </defs>
+</svg>
+
+<div class="auth-wrap">
+  <header class="auth-brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <div><strong>Logistics ERP</strong><span>Ложистикийн удирдлагын систем</span></div>
+  </header>
+
+  <!-- Нэвтрэх: /login (ерөнхий — эрхтэй бүх модуль), /login/<модуль>, /login/admin -->
+  <section id="single" hidden>
+    <!-- Өмнө нэвтэрсэн session байвал: үргэлжлүүлэх эсвэл өөр хэрэглэгчээр -->
+    <div class="panel login" id="sess" hidden>
+      <div class="mhead">
+        <span class="micon"><svg><use class="mi" href="#i-user"/></svg></span>
+        <div><h1 class="mt"></h1><p class="muted" id="sess-who"></p></div>
+      </div>
+      <p class="alert" id="sess-no" hidden></p>
+      <button class="btn primary" id="sess-go" onclick="location.replace(nextUrl())">Үргэлжлүүлэх →</button>
+      <button class="btn" onclick="switchUser()">Өөр хэрэглэгчээр нэвтрэх</button>
+    </div>
+    <form class="panel login" id="lf" onsubmit="doLogin(event)" hidden>
+      <div class="seg" role="tablist" aria-label="Нэвтрэх төрөл" id="seg">
+        <button type="button" role="tab" data-as="user" onclick="setMode('user')"><svg><use href="#i-user"/></svg>Хэрэглэгч</button>
+        <button type="button" role="tab" data-as="admin" onclick="setMode('admin')"><svg><use href="#i-admin"/></svg>Админ</button>
+      </div>
+      <div class="mhead">
+        <span class="micon"><svg><use class="mi" href="#i-user"/></svg></span>
+        <div><h1 class="mt"></h1><p class="muted" id="md"></p></div>
+      </div>
+      <label>Хэрэглэгчийн нэр<input id="lu" autocomplete="username" required></label>
+      <label>Нууц үг<input id="lp" type="password" autocomplete="current-password" required></label>
+      <div id="le" class="alert" role="alert" hidden></div>
+      <button class="btn primary" id="lb">Нэвтрэх</button>
+      <p class="reg-link" id="regl">Бүртгэлгүй юу? <a href="/register">Бүртгүүлэх</a></p>
+    </form>
+    <nav class="auth-other" id="back" aria-label="Бусад модуль" hidden>
+      <a href="/login">← Ерөнхий нэвтрэлт (бүх модуль)</a>
+      <span id="others"></span>
+    </nav>
+  </section>
+
+  <!-- /register — бүртгүүлэх (админ баталгаажуулсны дараа нэвтэрнэ) -->
+  <section id="reg" hidden>
+    <form class="panel login" id="rf" onsubmit="doRegister(event)">
+      <div class="mhead">
+        <span class="micon"><svg><use href="#i-user"/></svg></span>
+        <div><h1>Бүртгүүлэх</h1><p class="muted">Админ баталгаажуулсны дараа нэвтрэх боломжтой</p></div>
+      </div>
+      <label>Овог нэр<input id="rn" required minlength="2" maxlength="120" autocomplete="name"></label>
+      <label>Хэрэглэгчийн нэр<input id="ru" required minlength="3" maxlength="50" pattern="[A-Za-z0-9_.\-]+" title="Латин үсэг, тоо, _ . -" autocomplete="username">
+        <span class="hint">Латин үсэг, тоо (жишээ: bat.bold). Нэвтрэхдээ үүнийг ашиглана.</span></label>
+      <label>Ажлын үүрэг<select id="rr" onchange="regHint()"></select><span class="hint" id="rrh"></span></label>
+      <div class="two">
+        <label>Нууц үг<input id="rp" type="password" minlength="6" maxlength="128" required autocomplete="new-password"></label>
+        <label>Нууц үг давтах<input id="rp2" type="password" minlength="6" maxlength="128" required autocomplete="new-password"></label>
+      </div>
+      <div id="re" class="alert" role="alert" hidden></div>
+      <button class="btn primary" id="rb">Бүртгүүлэх</button>
+      <p class="reg-link">Бүртгэлтэй юу? <a href="/login">Нэвтрэх</a></p>
+    </form>
+    <div class="panel login" id="rok" hidden>
+      <div class="mhead">
+        <span class="micon ok-icon"><svg><use href="#i-admin"/></svg></span>
+        <div><h1>Бүртгэл илгээгдлээ</h1><p class="muted" id="rokt"></p></div>
+      </div>
+      <p class="note">Админ таны бүртгэлийг баталгаажуулсны дараа хэрэглэгчийн нэр, нууц үгээрээ нэвтэрнэ. Баталгаажсан эсэхийг админаас лавлана уу.</p>
+      <a class="btn primary" href="/login">Нэвтрэх хуудас руу</a>
+    </div>
+  </section>
+
+  <!-- Ерөнхий хуудсан дээр: модуль руу шууд нэвтрэх -->
+  <section id="chooser" hidden>
+    <div class="auth-head"><h2>Эсвэл модуль руу шууд нэвтрэх</h2></div>
+    <div class="mgrid" id="mgrid"></div>
+  </section>
+</div>
+<script src="/erp_frontend/static/src/js/login.js?v=20261106k"></script>
+</body>
+</html>
