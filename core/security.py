@@ -26,9 +26,15 @@ def verify_password(password: str, hashed: str) -> bool:
         return False
 
 
+<<<<<<< HEAD
 def create_access_token(subject: str, extra: dict | None = None, minutes: int | None = None) -> str:
     s = get_settings()
     exp = datetime.now(timezone.utc) + timedelta(minutes=minutes or s.ACCESS_TOKEN_EXPIRE_MINUTES)
+=======
+def create_access_token(subject: str, extra: dict | None = None) -> str:
+    s = get_settings()
+    exp = datetime.now(timezone.utc) + timedelta(minutes=s.ACCESS_TOKEN_EXPIRE_MINUTES)
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
     payload = {"sub": subject, "exp": exp, **(extra or {})}
     return jwt.encode(payload, s.SECRET_KEY, algorithm=s.JWT_ALGORITHM)
 

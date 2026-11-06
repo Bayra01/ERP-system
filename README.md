@@ -5,6 +5,7 @@ FastAPI + SQLAlchemy 2 + Alembic. Modul burt neg gishuun hariutsana.
 ## Ehluulleh
 ```bash
 pip install -r requirements.txt
+<<<<<<< HEAD
 cp -n .env.example .env              # .env байхгүй үед л (байгаа .env-ийг дарж бичихгүй)
 alembic upgrade head               # PostgreSQL bol (sqlite deer avtomataar uusne)
 python seed.py                     # (songoltoor) demo aguulah/baraa/mashin/hereglegch
@@ -25,6 +26,14 @@ Dev (sqlite) deer table avtomataar uusne, anhnii admin: `admin / admin12345`.
 
 Bukh UI neg origin deer bol `localStorage["erp-token"]`-g huvaaltsana (neg udaa nevtrene).
 Dev server-uudad CORS: `.env` -> `CORS_ORIGINS`.
+=======
+cp .env.example .env
+uvicorn main:app --reload          # http://localhost:8000/docs
+pytest
+```
+Dev (sqlite) deer table avtomataar uusne, anhnii admin: `admin / admin12345`.
+Prod (PostgreSQL): `alembic upgrade head`.
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
 
 ## Gishuun burt (modul-iin ezen) yaaj ajillah ve
 1. `modules/<modul>/backend/models.py` - `from core.database import Base`, `IdMixin, TimestampMixin` ashiglana. Table ner: `<ugtvar>_xxx` (orders_, wh_, tr_, fin_, routing_, notif_).
@@ -44,8 +53,12 @@ Dev server-uudad CORS: `.env` -> `CORS_ORIGINS`.
 | warehouse (stock, movement, reservation) | /api/warehouse | duussan |
 | transport (Vehicle, Driver, Shipment, Trip) | /api/transport | duussan |
 | finance (Invoice, Payment, Expense) | /api/finance | duussan |
+<<<<<<< HEAD
 | routing (nearest-neighbour marshrut, haversine zai) | /api/routing | duussan |
 | notifications (event -> role-oor hereglegch burt) | /api/notifications | duussan |
+=======
+| routing, notifications | /api/<modul> | gishuun burt |
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
 
 Master data: orders/warehouse/transport ene table-uudiin `id`-g FK-eer holbono
 (`md_customers.id`, `md_products.id`, `md_locations.id`). Ustgal bol soft delete (`deleted_at`).
@@ -87,13 +100,17 @@ Routing modul daraa n `Trip.stops` (stop_sequence) ba `total_distance_km`-g bugl
 ## Finance
 `fin_invoices` (nehemjleh, `paid` = tulburuuden niilber), `fin_payments`, `fin_expenses`.
 Endpoint: `GET/POST /api/finance/{invoices,payments,expenses}`, `GET /api/finance/invoices/{id}`.
+<<<<<<< HEAD
 Tailan: `GET /api/finance/reports/summary` (JSON), `GET /api/finance/reports/export?date_from=&date_to=` (Excel .xlsx, 8 sheet; `modules/finance/backend/export.py`).
+=======
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
 List endpoint Page biš, **Array** butsaana (frontend ene shapeeer ajilladag). Dun = number, talbaruud camelCase (`invoiceId`).
 Erh: `finance:read` / `finance:write` (admin, accountant).
 
 Sonsdog: `order.delivered` -> nehemjleh uusgene (dun = order.total_amount, tulukh hugatsaa +30 honog, 1 zahialga = 1 nehemjleh).
 Tulbur: nehemjlehiin uldegdelees ih baij bolohgui, buten tulugdsun nehemjleh deer 409.
 Nehemjleh gar aaraa uusgehed `customer` (ner) ugsun ch bolno: oldohgui bol shine kharitsagch (`AUTO-<id>`) uusgene, esvel `customer_id` ugnu.
+<<<<<<< HEAD
 
 ## Routing
 `POST /api/routing/trips/{id}/optimize` - planned aylliin zogsoltuudyg aguulahaas (depot) ehlen hamgiin oir daraallaar
@@ -117,3 +134,5 @@ zohih role-tei (ba admin) idevhtei hereglegch burt uusne.
 Nevtersnii daraa shuud modul ruu (`?next=` baival tend). `/api/auth/me` -> `modules` (nevterch boloh modul).
 Ajiltnuud: admin `/erp-ui#us` (`GET/POST /api/auth/users`, `PATCH /api/auth/users/{id}`, `GET /api/auth/roles`);
 admin uuriigee bolon suuliin adminiig idevhgui/dur buuruulah bolomjgui. Ajiltan burt "Nuuts ug" -> `POST /api/auth/me/password`.
+=======
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4

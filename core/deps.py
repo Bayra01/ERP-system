@@ -26,8 +26,11 @@ def get_current_user(
         raise UnauthorizedError("Token alga")
     try:
         payload = decode_access_token(cred.credentials)
+<<<<<<< HEAD
         if payload.get("purpose"):  # tusgai zoriulalttai (jish. file tatah) token API-d nevtrehgui
             raise ValueError("purpose token")
+=======
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
         user_id = int(payload["sub"])
     except Exception:  # noqa: BLE001
         raise UnauthorizedError("Token buruu esvel hugatsaa duussan")

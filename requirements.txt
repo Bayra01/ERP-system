@@ -7,5 +7,8 @@ alembic
 pyjwt
 pytest
 httpx
+<<<<<<< HEAD
 openpyxl  # sanhuugiin tailan (.xlsx)
+=======
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
 # prod (PostgreSQL): psycopg[binary]

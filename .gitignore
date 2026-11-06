@@ -6,4 +6,7 @@ venv/
 .env
 .vscode/
 *.db
+<<<<<<< HEAD
 db_export/
+=======
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4

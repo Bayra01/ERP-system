@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+"""Hugtsaanii ugtvar: orders_"""
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
 from datetime import datetime
 from decimal import Decimal
 
@@ -13,12 +17,19 @@ class Order(IdMixin, TimestampMixin, Base):
 
     order_no: Mapped[str | None] = mapped_column(String(30), unique=True, index=True, nullable=True)
     customer_id: Mapped[int] = mapped_column(ForeignKey("md_customers.id"), index=True)
+<<<<<<< HEAD
     delivery_location_id: Mapped[int | None] = mapped_column(
         ForeignKey("md_locations.id"), nullable=True)
     status: Mapped[str] = mapped_column(String(20), index=True, default="draft")
     order_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     requested_delivery_date: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True)
+=======
+    delivery_location_id: Mapped[int | None] = mapped_column(ForeignKey("md_locations.id"), nullable=True)
+    status: Mapped[str] = mapped_column(String(20), default="draft", index=True)
+    order_date: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    requested_delivery_date: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
     total_amount: Mapped[Decimal] = mapped_column(Numeric(16, 2), default=0)
     created_by: Mapped[int | None] = mapped_column(ForeignKey("auth_users.id"), nullable=True)
@@ -26,7 +37,11 @@ class Order(IdMixin, TimestampMixin, Base):
     lines: Mapped[list["OrderLine"]] = relationship(
         back_populates="order", cascade="all, delete-orphan", order_by="OrderLine.id")
     history: Mapped[list["OrderStatusHistory"]] = relationship(
+<<<<<<< HEAD
         cascade="all, delete-orphan", order_by="OrderStatusHistory.id")
+=======
+        back_populates="order", cascade="all, delete-orphan", order_by="OrderStatusHistory.id")
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
 
 
 class OrderLine(IdMixin, Base):
@@ -35,7 +50,11 @@ class OrderLine(IdMixin, Base):
     order_id: Mapped[int] = mapped_column(ForeignKey("orders_orders.id"), index=True)
     product_id: Mapped[int] = mapped_column(ForeignKey("md_products.id"), index=True)
     quantity: Mapped[Decimal] = mapped_column(Numeric(14, 3))
+<<<<<<< HEAD
     unit_price: Mapped[Decimal] = mapped_column(Numeric(14, 2))
+=======
+    unit_price: Mapped[Decimal] = mapped_column(Numeric(14, 2))  # zahialgiin uyiin une (snapshot)
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
     line_total: Mapped[Decimal] = mapped_column(Numeric(16, 2))
 
     order: Mapped[Order] = relationship(back_populates="lines")
@@ -50,3 +69,8 @@ class OrderStatusHistory(IdMixin, Base):
     user_id: Mapped[int | None] = mapped_column(ForeignKey("auth_users.id"), nullable=True)
     note: Mapped[str | None] = mapped_column(String(300), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+<<<<<<< HEAD
+=======
+
+    order: Mapped[Order] = relationship(back_populates="history")
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4

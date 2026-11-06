@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from datetime import datetime
 from typing import Literal
 
@@ -42,10 +43,26 @@ class TokenOut(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserOut
+=======
+from pydantic import BaseModel, ConfigDict, Field
+
+from core.permissions import Role
+
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
 
 
 class UserCreate(BaseModel):
     username: str = Field(min_length=3, max_length=50)
+<<<<<<< HEAD
     full_name: str = Field("", max_length=120)
     password: str = Field(min_length=6)
     role: Role = Role.DISPATCHER
@@ -93,3 +110,24 @@ class AuditOut(BaseModel):
     entity_id: str | None
     detail: dict | None
     created_at: datetime
+=======
+    password: str = Field(min_length=8, max_length=128)
+    full_name: str = ""
+    role: Role = Role.DISPATCHER
+
+
+class UserUpdate(BaseModel):
+    full_name: str | None = None
+    role: Role | None = None
+    is_active: bool | None = None
+    password: str | None = Field(default=None, min_length=8, max_length=128)
+
+
+class UserRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    username: str
+    full_name: str
+    role: str
+    is_active: bool
+>>>>>>> d36e373445a18be1206c41ef792e8f2f518f4cd4
